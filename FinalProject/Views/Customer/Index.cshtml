@@ -5,12 +5,12 @@
 }
 
 <h2>客戶清單</h2>
-<form action="/Customer/Search">
-    <p>
-        <input type="search" name="search" value="" />
-        <input type="submit" value="查詢客戶" />
-    </p>
-</form>
+    <form action="/Customer/Search">
+        <p>
+            <input type="search" name="search" value="" /> <input type="submit" value="查詢客戶" />
+        </p>
+    </form>
+    
 <table class="table">
     <thead>
         <tr>
@@ -21,7 +21,11 @@
             <th>鄉鎮市區</th>
             <th>縣市</th>
             <th>郵遞區號</th>
+            <th></th>
+            <th></th>
+            <th align="right"><a class="btn btn-default" href="/Customer/Create">新增</a></th>
         </tr>
+
     </thead>
     <tbody>
         @foreach (var item in Model)
@@ -39,6 +43,9 @@
             </td>
             <td>
                 <a class="btn btn-warning" href="/Customer/Edit/@item.Id">編輯</a>
+            </td>
+            <td>
+                <a class="btn btn-danger" href="/Customer/Delete/@item.Id">刪除</a>
             </td>
         </tr>
         }

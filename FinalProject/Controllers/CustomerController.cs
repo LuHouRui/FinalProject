@@ -39,7 +39,14 @@ namespace FinalProject.Controllers
        
             return View(customers);
         }
-
+        public IActionResult Contact()
+        {
+            return View();
+        }
+        public IActionResult About()
+        {
+            return View();
+        }
         public IActionResult Search(string search)
         {
             List<Customer> customers = db.Customer.Where(x=>x.客戶名稱 == search).ToList();
@@ -52,6 +59,35 @@ namespace FinalProject.Controllers
             var model = db.Customer.Find(id);
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var model = db.Customer.Find(id);
+            
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult Delete(Customer model)
+        {
+            db.Customer.Remove(model);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Customer", null);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(Customer model)
+        {
+            db.Add(model);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Customer", null);
+        }
+
         [HttpGet]
         public IActionResult Edit(int id)
         {
