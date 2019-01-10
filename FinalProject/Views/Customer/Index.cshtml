@@ -1,0 +1,48 @@
+﻿@model List<Core.Models.Customer>
+
+@{
+    ViewData["Title"] = "客戶清單";
+}
+
+<h2>客戶清單</h2>
+<form action="/Customer/Search">
+    <p>
+        <input type="search" name="search" value="" />
+        <input type="submit" value="查詢客戶" />
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>客戶編號</th>
+            <th>客戶名稱</th>
+            <th>統一編號</th>
+            <th>鄉鎮市區</th>
+            <th>縣市</th>
+            <th>郵遞區號</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.客戶編號</td>
+            <td>@item.客戶名稱</td>
+            <td>@item.統一編號</td>
+            <td>@item.鄉鎮市區</td>
+            <td>@item.縣市</td>
+            <td>@item.郵遞區號</td>
+            <td>
+                <a class="btn btn-primary" href="/Customer/Details/@item.Id">詳細</a>
+            </td>
+            <td>
+                <a class="btn btn-warning" href="/Customer/Edit/@item.Id">編輯</a>
+            </td>
+        </tr>
+        }
+
+
+    </tbody>
+</table>
