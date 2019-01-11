@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -33,10 +31,34 @@ namespace FinalProject.Controllers
         {
             db = new DataBaseContext();
         }
-        public IActionResult Index()
+        public IActionResult Index(string sortby)
         {
             List<Customer> customers = db.Customer.ToList();
-       
+            ViewBag.NameSortParm = string.IsNullOrEmpty(sortby) ? "name" : "";
+            ViewBag.NumberSortParm = string.IsNullOrEmpty(sortby) ? "number" : "";
+            ViewBag.CitySortParm = string.IsNullOrEmpty(sortby) ? "city" : "";
+            ViewBag.CountrySortParm = string.IsNullOrEmpty(sortby) ? "country" : "";
+            ViewBag.MailNumSortParm = string.IsNullOrEmpty(sortby) ? "mailnum" : "";
+            switch (sortby)
+            {
+                case "name":
+                    customers = customers.OrderBy(x => x.客戶名稱).ToList();
+                    break;
+                case "number":
+                    customers = customers.OrderBy(x => x.統一編號).ToList();
+                    break;
+                case "city":
+                    customers = customers.OrderBy(x => x.鄉鎮市區).ToList();
+                    break;
+                case "country":
+                    customers = customers.OrderBy(x => x.縣市).ToList();
+                    break;
+                case "mailnum":
+                    customers = customers.OrderBy(x => x.郵遞區號).ToList();
+                    break;
+                default:
+                    break;
+            }
             return View(customers);
         }
         public IActionResult Contact()
@@ -49,7 +71,9 @@ namespace FinalProject.Controllers
         }
         public IActionResult Search(string search)
         {
-            List<Customer> customers = db.Customer.Where(x=>x.客戶名稱 == search).ToList();
+            List<Customer> customers = db.Customer.Where(x=>x.客戶名稱 == search 
+            || x.統一編號 == search || x.縣市 == search || x.鄉鎮市區 == search ||
+            x.郵遞區號 == search || x.客戶編號 == search).ToList();
 
             return View(customers);
         }

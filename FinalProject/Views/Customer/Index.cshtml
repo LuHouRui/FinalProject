@@ -16,11 +16,13 @@
         <tr>
             <th>Id</th>
             <th>客戶編號</th>
-            <th>客戶名稱</th>
-            <th>統一編號</th>
-            <th>鄉鎮市區</th>
-            <th>縣市</th>
-            <th>郵遞區號</th>
+            <th>
+                @Html.ActionLink("客戶名稱", "Index", new { sortby = ViewBag.NameSortParm })          
+            </th>
+            <th>@Html.ActionLink("統一編號", "Index", new { sortby = ViewBag.NumberSortParm })</th>
+            <th>@Html.ActionLink("鄉鎮市區", "Index", new { sortby = ViewBag.CitySortParm })</th>
+            <th>@Html.ActionLink("縣市", "Index", new { sortby = ViewBag.CountrySortParm })</th>
+            <th>@Html.ActionLink("郵遞區號", "Index", new { sortby = ViewBag.MailNumSortParm })</th>
             <th></th>
             <th></th>
             <th align="right"><a class="btn btn-default" href="/Customer/Create">新增</a></th>
