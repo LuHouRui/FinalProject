@@ -13,22 +13,36 @@ namespace Core
     {
         static void Main(string[] args)
         {
+            int c = 0; 
+            Console.WriteLine("初始化....");
             EFRepository Repository = new EFRepository();
+            MySqlRepository mySqlRepository = new MySqlRepository();
             Import_Excel import_Excel = new Import_Excel();
-            import_Excel.OpenFile(@"C:\Users\User\Desktop\FinalProject\Core\App_Data\客戶資料.xlsx");
+        
+            Console.WriteLine("開啟檔案中....");
+            import_Excel.OpenFile(@"D:\DcTenXen0621\Data\School\107-1-SoftWare_Engerneering\FinalProject\Core\App_Data\客戶資料.xlsx");
             List<Customer> result = new List<Customer>();
             result = import_Excel.Get_Data(import_Excel.Get_WorkSheet(0));
+        
+            Console.Write("正在上傳檔案置資料庫");
             result.ForEach(x =>
             {
-                Repository.Insert(x);
+                if(++c > 50)
+                {
+                    Console.WriteLine("");
+                    c = 0;
+                }
+                Console.Write(".");
+                mySqlRepository.Insert(x);
             });
+            Console.WriteLine("檔案上傳完成.");
             Console.ReadKey();
         }
         public static void ShowData(List<Customer> result)
         {
             result.ForEach(x =>
             {
-                var message = $"客戶編號:{x.客戶編號},客戶名稱:{x.客戶名稱},";
+                var message = $"客戶編號:{x.ID},客戶名稱:{x.Name},";
                 Console.WriteLine(message);
             });
         }
@@ -64,49 +78,49 @@ class Import_Excel
                 {
                     switch (j)
                     {
-                        case 1:
-                            item.客戶編號 = (string)cells[i, j].Value;
-                            break;
+                        //case 1:
+                        //    item.客戶編號 = (string)cells[i, j].Value;
+                        //    break;
                         case 2:
-                            item.客戶名稱 = (string)cells[i, j].Value;
+                            item.Name = cells[i, j].Value.ToString() ?? " ";
                             break;
                         case 3:
-                            item.統一編號 = (string)cells[i, j].Value;
+                            item.TaxId = cells[i, j].Value.ToString() ?? " ";
                             break;
                         case 4:
-                            item.帳單地址 = (string)cells[i, j].Value;
+                            item.BillingAddress = cells[i, j].Value.ToString() ?? " ";
                             break;
                         case 5:
-                            item.鄉鎮市區 = (string)cells[i, j].Value;
+                            item.Village = cells[i, j].Value.ToString() ?? " ";
                             break;
                         case 6:
-                            item.縣市 = (string)cells[i, j].Value;
+                            item.City = cells[i, j].Value.ToString() ?? " ";
                             break;
                         case 7:
-                            item.郵遞區號 = (string)cells[i, j].Value.ToString();
+                            item.PostalCode = cells[i, j].Value.ToString() ?? " ";
                             break;
                         case 8:
-                            item.含稅 = (string)cells[i, j].Value;
+                            item.PercentFive = cells[i, j].Value.ToString() ?? " ";
                             break;
                         case 9:
-                            item.聯絡人 = (string)cells[i, j].Value;
+                            item.Contact = cells[i, j].Value.ToString() ?? " ";
                             break;
                         case 10:
-                            item.聯絡人電話 = cells[i, j].Value.ToString();
+                            item.ContactPhone = cells[i, j].Value.ToString() ?? " ";
                             break;
                         case 11:
-                            item.公司電話 = cells[i, j].Value.ToString();
+                            item.CompanyPhone = cells[i, j].Value.ToString() ?? " ";
                             break;
                         case 12:
-                            item.公司傳真 = cells[i, j].Value.ToString();
+                            item.CompanyTax = cells[i, j].Value.ToString() ?? " " ;
                             break;
                         case 13:
-                            item.附註 = (string)cells[i, j].Value;
+                            item.Description = cells[i, j].Value.ToString() ?? " ";
                             break;
                     }
                 }
             }
-            if (item.客戶名稱 != "" && item.客戶名稱 != " " && item.客戶名稱 != null && item.客戶名稱 != "客戶名稱")
+            if (item.Name != "" && item.Name != " " && item.Name != null && item.Name != "客戶名稱")
             {
                 result.Add(item);
             }

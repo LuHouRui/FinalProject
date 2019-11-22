@@ -22,14 +22,14 @@ namespace Core.Repository
             var query = DbContext.Customer.AsQueryable();
             if (!string.IsNullOrEmpty(name))
             {
-                query = query.Where(x => x.客戶名稱 == name);
+                query = query.Where(x => x.Name == name);
             }
 
             return query.ToList();
         }
         private void Orderby(IQueryable<Customer> query)
         {
-            query.OrderBy(x => x.縣市);
+            query.OrderBy(x => x.City);
         }
         public void Insert(Customer item)
         {
@@ -38,29 +38,28 @@ namespace Core.Repository
         }
         private void Update(Customer item)
         {
-            var exsit = DbContext.Customer.Where(x => x.客戶編號 == item.客戶編號).SingleOrDefault();
+            var exsit = DbContext.Customer.Where(x => x.Name == item.Name).SingleOrDefault();
             if (exsit == null)
             {
                 return;
             }
-            exsit.客戶編號 = item.客戶編號;
-            exsit.客戶名稱 = item.客戶名稱;
-            exsit.統一編號 = item.統一編號;
-            exsit.帳單地址 = item.帳單地址;
-            exsit.鄉鎮市區 = item.鄉鎮市區;
-            exsit.縣市 = item.縣市;
-            exsit.郵遞區號 = item.郵遞區號;
-            exsit.公司電話 = item.公司電話;
-            exsit.公司傳真 = item.公司傳真;
-            exsit.含稅 = item.含稅;
-            exsit.聯絡人 = item.聯絡人;
-            exsit.聯絡人電話 = item.聯絡人電話;
-            exsit.附註 = item.附註;
+            exsit.Name = item.Name;
+            exsit.TaxId = item.TaxId;
+            exsit.BillingAddress = item.BillingAddress;
+            exsit.Village = item.Village;
+            exsit.City = item.City;
+            exsit.PostalCode = item.PostalCode;
+            exsit.CompanyPhone = item.CompanyPhone;
+            exsit.CompanyTax = item.CompanyTax;
+            exsit.PercentFive = item.PercentFive;
+            exsit.Contact = item.Contact;
+            exsit.ContactPhone = item.ContactPhone;
+            exsit.Description = item.Description;
             DbContext.SaveChanges();
         }
-        private void Delete(string In)
+        private void Delete(int? In)
         {
-            var exsit = DbContext.Customer.Where(x => x.客戶編號 == In).SingleOrDefault();
+            var exsit = DbContext.Customer.Where(x => x.ID == In).SingleOrDefault();
             if (exsit == null)
             {
                 return;

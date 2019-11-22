@@ -16,9 +16,7 @@
         <tr>
             <th>Id</th>
             <th>客戶編號</th>
-            <th>
-                @Html.ActionLink("客戶名稱", "Index", new { sortby = ViewBag.NameSortParm })          
-            </th>
+            <th>@Html.ActionLink("客戶名稱", "Index", new { sortby = ViewBag.NameSortParm })</th>
             <th>@Html.ActionLink("統一編號", "Index", new { sortby = ViewBag.NumberSortParm })</th>
             <th>@Html.ActionLink("鄉鎮市區", "Index", new { sortby = ViewBag.CitySortParm })</th>
             <th>@Html.ActionLink("縣市", "Index", new { sortby = ViewBag.CountrySortParm })</th>
@@ -33,6 +31,7 @@
         @foreach (var item in Model)
         {
         <tr>
+
             <td>@item.Id</td>
             <td>@item.客戶編號</td>
             <td>@item.客戶名稱</td>

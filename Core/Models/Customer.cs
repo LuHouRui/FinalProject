@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,35 +10,32 @@ namespace Core.Models
 {
     public class Customer
     {
-        public int Id { set; get; }
-        public string 客戶編號 { set; get; }
-        public string 客戶名稱 { set; get; }
-        public string 統一編號 { set; get; }
-        public string 帳單地址 { set; get; }
-        public string 鄉鎮市區 { set; get; }
-        public string 縣市 { set; get; }
-        public string 郵遞區號 { set; get; }
-        public string 含稅 { set; get; }
-        public string 聯絡人 { set; get; }
-        public string 聯絡人電話 { set; get; }
-        public string 公司電話 { set; get; }
-        public string 公司傳真 { set; get; }
-        public string 附註 { set; get; }
-        public void Clear()
-        {
-            客戶編號 = "";
-            客戶名稱 = "";
-            統一編號 = "";
-            帳單地址 = "";
-            鄉鎮市區 = "";
-            縣市 = "";
-            郵遞區號 = "";
-            含稅 = "";
-            聯絡人 = "";
-            聯絡人電話 = "";
-            公司電話 = "";
-            公司傳真 = "";
-            附註 = "";
-        }
+        [Key]
+        public int ID { get; set; }
+        [DisplayName("客戶名稱")]
+        [Required]
+        public string Name { get; set; }
+        [DisplayName("統一編號")]
+        public string TaxId { get; set; }
+        [DisplayName("帳單地址")]
+        public string BillingAddress { get; set; }
+        [DisplayName("鄉鎮市區")]
+        public string Village { get; set; }
+        [DisplayName("縣市")]
+        public string City { get; set; }
+        [DisplayName("郵遞區號")]
+        public string PostalCode { get; set; }
+        [DisplayName("5％")]
+        public string PercentFive { get; set; }
+        [DisplayName("聯絡人")]
+        public string Contact { get; set; }
+        [DisplayName("聯絡人電話")]
+        public string ContactPhone { get; set; }
+        [DisplayName("公司電話")]
+        public string CompanyPhone { get; set; }
+        [DisplayName("公司傳真")]
+        public string CompanyTax { get; set; }
+        [DisplayName("附註")]
+        public string Description { get; set; }
     }
 }

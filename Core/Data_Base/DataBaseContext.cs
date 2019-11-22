@@ -14,7 +14,7 @@ namespace Core.Data_Base
         {
             get
             {
-                return @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\User\Desktop\FinalProject\Core\App_Data\MyDataBase.mdf;Integrated Security=True";
+                return @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\DcTenXen0621\Data\School\107-1-SoftWare_Engerneering\FinalProject\Core\App_Data\MyDataBase.mdf;Integrated Security=True";
             }
         }
         public DbSet<Customer> Customer { get; set; }
